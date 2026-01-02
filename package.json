@@ -1,15 +1,14 @@
 {
   "name": "ui-citations",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "type": "module",
-
-  "files": ["dist"],
-
+  "files": [
+    "dist"
+  ],
   "main": "./dist/ui-citations.umd.cjs",
   "module": "./dist/ui-citations.js",
   "types": "./dist/types/index.d.ts",
   "style": "./dist/ui-citations.css",
-
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
@@ -18,10 +17,9 @@
     },
     "./ui-citations.css": "./dist/ui-citations.css"
   },
-
   "scripts": {
     "clean": "rm -rf dist",
-    "dev":"vite",
+    "dev": "vite",
     "build:types": "tsc -p tsconfig.build.json",
     "build:vite": "vite build",
     "build": "npm run clean && npm run build:types && npm run build:vite",
