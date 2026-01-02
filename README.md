@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ui-citations
 
 A plug-and-play React + TypeScript component to display **audio citations**, **transcripts**, and **AI-extracted key takeaways** in a clean, card-style UI.

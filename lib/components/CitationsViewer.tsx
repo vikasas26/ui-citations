@@ -9,7 +9,7 @@ export default function CitationsViewer({ artifact, onCloseHandler }: CitationsV
   const resolvedAudioUrl = useResolvedAudioUrl(artifact.fileUrl);
 
   if (!resolvedAudioUrl) {
-    return <div className="p-4 text-sm">Loading audio…</div>;
+    return <div className="p-4 text-sm">Loading Citations…</div>;
   }
 
  const firstMessage = artifact.chatHistory[0];
