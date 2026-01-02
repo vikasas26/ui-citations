@@ -20,9 +20,32 @@
   "scripts": {
     "clean": "rm -rf dist",
     "dev": "vite",
-    "build:types": "tsc -p tsconfig.build.json",
+    "build:types": "npx tsc -p tsconfig.build.json",
     "build:vite": "vite build",
     "build": "npm run clean && npm run build:types && npm run build:vite",
     "release": "npm run build && npm publish"
+  },
+  "peerDependencies": {
+    "lucide-react": "^0.400.0",
+    "react": ">=18",
+    "react-dom": ">=18",
+    "wavesurfer.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "lucide-react": "^0.400.0",
+    "wavesurfer.js": "^7.0.0"
   }
 }
