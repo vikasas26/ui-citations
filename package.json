@@ -7,11 +7,11 @@
   ],
   "main": "./dist/ui-citations.umd.cjs",
   "module": "./dist/ui-citations.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/index.d.ts",
   "style": "./dist/ui-citations.css",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/ui-citations.js",
       "require": "./dist/ui-citations.umd.cjs"
     },
