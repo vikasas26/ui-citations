@@ -1,73 +1,143 @@
-# React + TypeScript + Vite
+# ui-citations
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A plug-and-play React + TypeScript component to display **audio citations**, **transcripts**, and **AI-extracted key takeaways** in a clean, card-style UI.
 
-Currently, two official plugins are available:
+The library automatically:
+- Resolves `gs://` (Google Cloud Storage) audio URLs to signed URLs
+- Renders audio waveform with highlighted timestamp ranges
+- Displays transcript and key takeaways
+- Ships with full TypeScript support
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Automatic GCS (`gs://`) → signed URL resolution  
+- 🎧 Audio waveform with timestamp highlights  
+- 📝 Transcript viewer  
+- 💡 Key takeaways with `**bold**` text support  
+- 🧩 Fully typed (TypeScript)  
+- 🎨 Includes ready-to-use CSS  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install ui-citations
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+or
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn add ui-citations
 ```
+
+---
+
+## 🎨 Import Styles (Required)
+
+```ts
+import "ui-citations/ui-citations.css";
+```
+
+> ⚠️ Styles will not apply unless this CSS file is imported.
+
+---
+
+## 🚀 Basic Usage
+
+```tsx
+import { useState } from "react";
+import { CitationsViewer, type ArtifactData } from "ui-citations";
+import "ui-citations/ui-citations.css";
+
+export default function App() {
+  const [open, setOpen] = useState(true);
+
+  const artifact: ArtifactData = {
+    airelavanceScore: 0,
+    gifUrl: "",
+    artifactTitle: "",
+    fileUrl: "",
+    chatHistory: [],
+    keyTakeaways: [],
+  };
+
+  return (
+    <>
+      {open && (
+        <CitationsViewer
+          artifact={artifact}
+          onCloseHandler={() => setOpen(false)}
+        />
+      )}
+    </>
+  );
+}
+```
+
+---
+
+## 🧩 ArtifactData Format
+
+This is the complete TypeScript shape expected by the component.  
+You can start with empty values and populate later.
+
+```ts
+export interface ArtifactData {
+  airelavanceScore: number;
+  gifUrl: string;
+  artifactTitle: string;
+  fileUrl: string; // https:// or gs://
+
+  chatHistory: {
+    role: "assistant" | "user";
+    message: string;
+    timestamp: string;
+    timestamp_start?: number;
+    timestamp_end?: number;
+  }[];
+
+  keyTakeaways: {
+    takeawayId: string;
+    name: string;
+    content: string; // Supports **bold**
+    emoji?: string;
+    keywords?: string[];
+  }[];
+}
+```
+
+---
+
+## 🎧 Audio URL Support
+
+You can pass **either** a public URL:
+
+```ts
+fileUrl: "https://example.com/audio.mp3"
+```
+
+or a Google Cloud Storage path:
+
+```ts
+fileUrl: "gs://your-bucket/path/audio.mp3"
+```
+
+👉 `gs://` URLs are **automatically converted to signed URLs internally**.  
+No manual signing required.
+
+---
+
+## 🧠 Notes
+
+- Timestamp ranges in `chatHistory` are used to highlight the audio waveform
+- `**double asterisks**` inside key takeaways render as **bold**
+- Ideal for dashboards, modals, or side panels
+
+---
+
+## 📄 License
+
+MIT
