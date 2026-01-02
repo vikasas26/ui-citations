@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+
+    "outDir": "dist/types",
+    "rootDir": "lib",
+
+    "module": "ESNext",
+    "target": "ES2020",
+    "jsx": "react-jsx",
+    "moduleResolution": "Node",
+
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["lib/index.ts"]
+}
