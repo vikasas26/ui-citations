@@ -121,7 +121,7 @@ regionsRef.current = ws.registerPlugin(RegionsPlugin.create());
           if (aborted) return;
           console.error("WaveSurfer error:", error);
           const errorMsg = error?.message ? String(error.message) : 'Unknown error';
-          setError(`Failed to load audio: ${errorMsg}`);
+          setError("Audio preview unavailable");
           setIsLoading(false);
         });
 
@@ -177,8 +177,8 @@ console.log("AudioWaveform src:", src);
   return (
     <div className="rounded-xl border border-[#e5e7eb] bg-white py-8 px-4 max-w-full overflow-hidden">
       {error && (
-        <div className="mb-3 p-2 bg-red-100 text-red-700 text-sm rounded">
-          {error}
+        <div className="mb-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          Audio preview is unavailable for this item.
         </div>
       )}
       {isLoading && !error && (
@@ -186,6 +186,7 @@ console.log("AudioWaveform src:", src);
           Loading audio...
         </div>
       )}
+    {!error && (
       <div className="flex gap-4 items-start">
         <button
           onClick={togglePlay}
@@ -210,6 +211,7 @@ console.log("AudioWaveform src:", src);
   }}/>
 
       </div>
+      )}
 
       <div className="mt-2 text-sm text-gray-600">
         {currentTime} / {totalTime}

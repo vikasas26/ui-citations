@@ -1,6 +1,8 @@
- export async function getSignedUrl(gsutilUrl: string): Promise<string> {
+import { getApiBaseUrl } from "../config/apiConfig";
+
+export async function getSignedUrl(gsutilUrl: string): Promise<string> {
   const res = await fetch(
-    "https://dev.appmod.ai/backend/gcs/get-signed-url/",
+    `${getApiBaseUrl()}/backend/gcs/get-signed-url/`,
     {
       method: "POST",
       headers: {
@@ -10,7 +12,6 @@
       body: JSON.stringify({
         gsutil_url: gsutilUrl,
         expiration_hours: 3,
-        // service_account_raw → backend should ideally handle this
       }),
     }
   );
@@ -20,5 +21,5 @@
   }
 
   const data = await res.json();
-  return data.signed_url; // <-- confirm backend response key
+  return data.signed_url;
 }
